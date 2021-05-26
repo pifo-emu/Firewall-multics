@@ -83,6 +83,15 @@ function restartScript {
 	startScript
 }
 
+function test {
+	startScript
+	echo -e "\e[31m!!ATENCION!!\e[0m"
+	echo "ESPERAMOS 60 SEG"
+	echo -e "\e[31mCOMPRUEBA QUE LOS PUERTOS ESTEN ABIERTO Y TENGAS ACCESO A SSH\e[0m"
+	sleep 60
+	echo -e "\e[31m!!ATENCION!!, DETENIENDO\e[0m"
+	stopScript
+}
 
 function showHelp {
 
@@ -108,9 +117,9 @@ function stopScript {
                 $IPT -F
                 $IPT -X
                 $IPT -Z
-		  $IPT -P INPUT ACCEPT
-		  $IPT -P FORWARD ACCEPT
-		  $IPT -P OUTPUT ACCEPT
+		$IPT -P INPUT ACCEPT
+		$IPT -P FORWARD ACCEPT
+		$IPT -P OUTPUT ACCEPT
 
 
         else
@@ -463,13 +472,7 @@ case "$1" in
 		exit
 		;;
 	test)
-		startScript
-		echo -e "\e[31m!!ATENCION!!\e[0m"
-		echo "ESPERAMOS 60 SEG"
-		echo -e "\e[31mCOMPRUEBA QUE LOS PUERTOS ESTEN ABIERTO Y TENGAS ACCESO A SSH\e[0m"
-		sleep 60
-		echo -e "\e[31m!!ATENCION!!, DETENIENDO\e[0m"
-		stopScript
+		test
 		exit
 		;;
 
