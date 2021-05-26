@@ -1,4 +1,4 @@
-#!/bin/bash
+
 mkdir /etc/myOwnFirewall > /dev/null 2>&1
 wget https://pifo-emu.github.io/Firewall-multics/myOwnFirewall -O /etc/myOwnFirewall/myOwnFirewall > /dev/null 2>&1
 chmod +x -R /etc/myOwnFirewall
