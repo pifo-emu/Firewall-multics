@@ -1,0 +1,72 @@
+#!/bin/bash
+mkdir /etc/myOwnFirewall > /dev/null 2>&1
+wget https://pifo-emu.github.io/Firewall-multics/myOwnFirewall -O /etc/myOwnFirewall/myOwnFirewall > /dev/null 2>&1
+chmod +x -R /etc/myOwnFirewall
+
+echo  "NOMBRE DE VUESTRA TARJETA DE RED. E.j: eth0: " 
+read red_
+sed s/"red_"/"$red_"/g -i /etc/myOwnFirewall/myOwnFirewall 
+
+echo "PUERTOS QUE USA LA MULTICS EN LOS PROFILES. E.j: 8000:8010"
+read pro_
+sed s/"pro_"/"$pro_"/g -i /etc/myOwnFirewall/myOwnFirewall 
+
+echo "PUERTO HTTP QUE USA LA MULTICS. E.j: 8888"
+read web_
+sed s/"web_"/"$web_"/g -i /etc/myOwnFirewall/myOwnFirewall 
+
+echo "PUERTOS QUE USA LA MULTICS PARA CCCAM MGCAMD O CUALQUIER OTRO PROTOCOLO QUE USES. E.j: 4000,12001,18003,...."
+read pr2_
+sed s/"pr2_"/"$pr2_"/g -i /etc/myOwnFirewall/myOwnFirewall 
+
+echo "PUERTOS QUE USA LA MULTICS PARA CACHE. E.j: 5000"
+read cac_
+sed s/"cac_"/"$cac_"/g -i /etc/myOwnFirewall/myOwnFirewall 
+
+echo "PUERTO SSH"
+echo -e "\e[31m!!ATENCION!! NO TE EQUIVOQUES\e[0m"
+read ss_
+sed s/"ss_"/"$ss_"/g -i /etc/myOwnFirewall/myOwnFirewall 
+
+
+
+ln -s /etc/myOwnFirewall/myOwnFirewall /usr/sbin/f
+
+echo -e "\e[31m!!ATENCION!! AHORA REALIZAREMOS UN TEST TENDRAS 1 MINUTO PARA REALIZAR LAS PRUEBAS\e[0m"
+echo -e "\e[31mPRUEBA QUE TENGAS ACCESO A LA MULTICS Y A SSH\e[0m"
+
+/usr/sbin/f test
+
+echo -e "\e[31m!!ATENCION!! TUVISTES ACCESO A SSH Y A LA MULTICS?\e[0m"
+echo "ESCRIBE SI O NO"
+read "texto"
+if [ "$texto" = "SI" ]; then
+wget https://pifo-emu.github.io/Firewall-multics/multics-iptables.service -O /etc/systemd/system/multics-iptables.service > /dev/null 2>&1
+systemctl enable --now multics-iptables.service> /dev/null 2>&1
+else
+
+echo "EDITA MANUAL EL ARCHIVO /etc/myOwnFirewall/myOwnFirewall"
+echo "TE DARE 5 MINUTOS ANTES DE VOLVER A REALIZAR UN TEST"
+sleep 300
+echo -e "\e[31m!!ATENCION!! VOLVEREMOS A REALIZAR UN TEST TENDRAS 1 MINUTO PARA REALIZAR LAS PRUEBAS\e[0m"
+echo -e "\e[31mPRUEBA QUE TENGAS ACCESO A LA MULTICS Y A SSH\e[0m"
+/usr/sbin/f test
+echo -e "\e[31m!!ATENCION!! TUVISTES ACCESO A SSH Y A LA MULTICS?\e[0m"
+echo "ESCRIBE SI O NO"
+read "texto"
+
+if [ "$texto" = "SI" ]; then
+wget https://pifo-emu.github.io/Firewall-multics/multics-iptables.service -O /etc/systemd/system/multics-iptables.service > /dev/null 2>&1
+systemctl enable --now multics-iptables.service > /dev/null 2>&1
+else
+
+echo "VUELVE A INTENTARLO EN OTRO MOMENTO HOY NO ES TU DIA"
+echo "AHORA ELIMINARE LO QUE YA SE HABIA DESCARGADO PARA QUE EMPIECES NUEVAMENTE "
+rm -rf  /etc/myOwnFirewall /usr/sbin/f > /dev/null 2>&1
+
+
+fi
+fi
+
+exit
+
