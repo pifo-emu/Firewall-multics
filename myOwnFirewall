@@ -1,15 +1,8 @@
 #!/bin/bash
 
-# myOwnFirewall v0.1		
-#
-# Author: Rolando Caldas	
-# http://rolandocaldas.com	
-# 
-# https://github.com/rolando-caldas/myOwnFirewall
-
 #################################################################
 #SCRIPT MODIFICADO POR perraka DE MULTICS.ES Y EDITADO POR PIFO #
-#ULTIMA EDICION 26-05-2021						 #
+#ULTIMA EDICION 26-05-2021					#
 #################################################################
 
 ########IMPORTANTE##############
@@ -17,17 +10,17 @@
 
 IPT=/sbin/iptables
 
-ETH="+" ##ATENCION AQUI VA EL NOMBRE DE VUESTRA TARJETA DE RED. E.j: "eth0"
+ETH="red_" ##ATENCION AQUI VA EL NOMBRE DE VUESTRA TARJETA DE RED. E.j: "eth0"
 
-MCS_P="+" # AQUI LOS PUERTOS QUE USA LA MULTICS. E.j: 8000:8010
+MCS_P="pro_" # AQUI LOS PUERTOS QUE USA LA MULTICS. E.j: 8000:8010
 
-MCS_W="+" # AQUI LOS PUERTOS QUE USA LA MULTICS WEB
+MCS_W="web_" # AQUI LOS PUERTOS QUE USA LA MULTICS WEB
 
-MCS_C="+" # AQUI LOS PUERTOS QUE USA LA MULTICS PARA CCCAM MGCAM O CUALQUIER OTRO PROTOCOLO QUE USEN. E.j: 4000,12001,18003,....
+MCS_C="pr2_" # AQUI LOS PUERTOS QUE USA LA MULTICS PARA CCCAM MGCAM O CUALQUIER OTRO PROTOCOLO QUE USEN. E.j: 4000,12001,18003,....
 
-CACHE="+"  # AQUI LOS PUERTOS QUE USA LA MULTICS PARA CACHE
+CACHE="cac_"  # AQUI LOS PUERTOS QUE USA LA MULTICS PARA CACHE
 
-SSH="+" # AQUI TU PUERTO SSH
+SSH="ss_" # AQUI TU PUERTO SSH
 
 ########################################################################################################################
 
@@ -217,7 +210,7 @@ $IPT -A INPUT -p icmp -j DROP
 
 # Intenta bloquear escaneos de puertos
 
-# Cualquiera que haya intentado escanear puertos estÃƒÂ¡ bloqueado por un dÃƒÂa entero.
+# Cualquiera que haya intentado escanear puertos estÃƒÆ’Ã‚Â¡ bloqueado por un dÃƒÆ’Ã‚a entero.
 
 
 $IPT -A INPUT -m recent --name portscan --rcheck --seconds 86400 -j DROP
@@ -225,7 +218,7 @@ $IPT -A INPUT -m recent --name portscan --rcheck --seconds 86400 -j DROP
 $IPT -A FORWARD -m recent --name portscan --rcheck --seconds 86400 -j DROP
 
 
-# Una vez que haya pasado el dÃƒÂa, elimÃƒÂnelos de la lista de escaneo de puertos
+# Una vez que haya pasado el dÃƒÆ’Ã‚a, elimÃƒÆ’Ã‚nelos de la lista de escaneo de puertos
 
 
 $IPT -A INPUT -m recent --name portscan --remove
@@ -233,15 +226,15 @@ $IPT -A INPUT -m recent --name portscan --remove
 $IPT -A FORWARD -m recent --name portscan --remove
 
 
-# explicación:
+# explicaciÃ³n:
 
-# Se añade cada ip que se conecte a la tabla de recent
+# Se aÃ±ade cada ip que se conecte a la tabla de recent
 
 # Por por cada ip en la tabla de recent si hace mas de x hits en x segundos, se dropea.
 
 
 
-### PROTECIÃƒâ€œN FUERZA-BRUTA SSH ###
+### PROTECIÃƒÆ’Ã¢â‚¬Å“N FUERZA-BRUTA SSH ###
 
 
 $IPT -A INPUT -p tcp --dport ssh -m conntrack --ctstate NEW -m recent --set
@@ -359,7 +352,7 @@ $IPT -A PKT_FAKE -f -j DROP
 
 
 
-### PROTECIÃƒâ€œN AL ESCANEO DE PUERTOS ###
+### PROTECIÃƒÆ’Ã¢â‚¬Å“N AL ESCANEO DE PUERTOS ###
 
 
 $IPT -N port-scanning
