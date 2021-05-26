@@ -68,5 +68,5 @@ rm -rf  /etc/myOwnFirewall /usr/sbin/f > /dev/null 2>&1
 fi
 fi
 
-exit
+
 
