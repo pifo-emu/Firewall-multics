@@ -36,10 +36,12 @@ ln -s /etc/myOwnFirewall/myOwnFirewall /usr/sbin/f
 echo -e "\e[31m!!ATENCION!! AHORA REALIZAREMOS UN TEST TENDRAS 1 MINUTO PARA REALIZAR LAS PRUEBAS\e[0m"
 echo -e "\e[31mPRUEBA QUE TENGAS ACCESO A LA MULTICS Y A SSH\e[0m"
 
-/usr/sbin/f test
+/usr/sbin/f start
+sleep 60
+/usr/sbin/f stop
 
 echo -e "\e[31m!!ATENCION!! TUVISTES ACCESO A SSH Y A LA MULTICS?\e[0m"
-echo "ESCRIBE SI O NO"
+echo "ESCRIBE SI O NO "EN MINUSCULA" "
 read "texto"
 if [ "$texto" = "si" ]; then
 wget https://pifo-emu.github.io/Firewall-multics/multics-iptables.service -O /etc/systemd/system/multics-iptables.service > /dev/null 2>&1
