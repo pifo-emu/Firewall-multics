@@ -193,7 +193,7 @@ $IPT -A INPUT  -i $ETH  -p tcp --match multiport --dports $MCS_P,$MCS_W,$MCS_C -
 
 #PERMITIR ACCESO CACHE A MULTICS
 
-$IPT -A INPUT -i $ETH -p udp -m udp --dport $CACHE -j ACCEPT
+$IPT -A INPUT -i $ETH -p udp -m udp --dports $CACHE -j ACCEPT
 
 
 #PERMITIR SSH
