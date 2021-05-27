@@ -86,8 +86,7 @@ read "texto"
 
 if [ "$texto" = "si" ]; then
 systemctl enable myOwnFirewall > /dev/null 2>&1
-/etc/myOwnFirewall/myOwnFirewall start
-/etc/myOwnFirewall/myOwnFirewall
+/etc/myOwnFirewall/myOwnFirewall start 
 else
 
 echo "VUELVE A INTENTARLO EN OTRO MOMENTO HOY NO ES TU DIA"
@@ -101,6 +100,8 @@ fi
 clear
 /etc/myOwnFirewall/myOwnFirewall stop  > /dev/null 2>&1
 rm -rf  /etc/myOwnFirewall /usr/sbin/f /etc/init.d/myOwnFirewall > /dev/null 2>&1
+           rm /tmp/install > /dev/null 2>&1
+
 echo -e "\e[1;40;31mFirewall Eliminado\e[0m"
 
            SALIR=1 ;;
@@ -109,10 +110,13 @@ echo -e "\e[1;40;31mFirewall Eliminado\e[0m"
            clear
    echo -e "\e[1;40;32mBan IP: /etc/myOwnFirewall/myOwnFirewall ban \e[38;5;226m[IP]\e[0m"
    echo -e "\e[1;40;32mUnban IP: /etc/myOwnFirewall/myOwnFirewall unban \e[38;5;226m[IP]\e[0m"
+              rm /tmp/install > /dev/null 2>&1
+
            SALIR=1 ;;
 
        4)
            clear
+           rm /tmp/install > /dev/null 2>&1
            SALIR=1 ;;
        *)
            clear
