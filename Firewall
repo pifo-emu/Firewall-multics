@@ -1,9 +1,15 @@
 #!/bin/bash
 
-#################################################################
-#SCRIPT MODIFICADO POR perraka DE MULTICS.ES Y EDITADO POR PIFO #
-#ULTIMA EDICION 27-05-2021					#
-#################################################################
+####################################################################
+#                                                                  #
+# SCRIPT PUBLICADO POR perraka DE MULTICS.ES Y MODIFICADO POR PIFO #
+# FOROS AUTORIZADOS PARA PUBLICACION                               #
+# MULTICSFORO.COM                                                  #
+# MULTICS.EU                                                       #
+# MULTICS.ES                                                       #
+#                                                                  #
+####################################################################
+
 
 ### BEGIN INIT INFO
 # Provides:          myOwnFirewall
@@ -97,9 +103,11 @@ function test {
 
 function showHelp {
 
-    echo "Usage: /etc/myOwnFirewall/myOwnFirewall {start|stop|restart|test|ban IP|unban IP}"
-    echo "Ban IP: /etc/myOwnFirewall/myOwnFirewall ban IP"
-    echo "Unban IP: /etc/myOwnFirewall/myOwnFirewall unban IP"
+   echo "Usage: /etc/myOwnFirewall/myOwnFirewall {start|stop|restart|test|ban IP|unban IP}"
+   echo -e "\e[1;40;32mBan IP: /etc/myOwnFirewall/myOwnFirewall ban \e[38;5;226m[IP]\e[0m"
+   echo -e "\e[1;40;32mBan IP: /etc/myOwnFirewall/myOwnFirewall ban \e[38;5;226m[HOST]\e[0m"
+   echo -e "\e[1;40;32mUnban IP: /etc/myOwnFirewall/myOwnFirewall unban \e[38;5;226m[IP]\e[0m"
+   echo -e "\e[1;40;32mUnban IP: /etc/myOwnFirewall/myOwnFirewall unban \e[38;5;226m[HOST]\e[0m"
 
 
 }
