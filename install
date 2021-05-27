@@ -20,7 +20,7 @@ echo -e "\e[38;5;75mMenu:\e[0m"
 
    echo -e "\e[1;40;37m1) \e[1;40;32mInstalar Firewall\e[0m"
    echo -e "\e[1;40;37m2) \e[1;40;31mEliminar Firewall\e[0m"
-   echo -e "\e[1;40;37m3) \e[38;5;75mManual de Uso Para Ban [Ip] o Unban [IP]\e[0m"
+   echo -e "\e[1;40;37m3) \e[38;5;75mManual de Uso Para Ban/Unban\e[0m"
    echo -e "\e[1;40;376m4) \e[38;5;226mSalir\e[0m"
    echo -e "\e[38;5;75mOpcion seleccionada:\e[0m"
    read OPCION
