@@ -28,7 +28,7 @@ echo -e "\e[38;5;75mMenu:\e[0m"
        1)
 clear
 mkdir /etc/myOwnFirewall > /dev/null 2>&1
-wget https://pifo-emu.github.io/Firewall-multics/myOwnFirewall -O /etc/myOwnFirewall/myOwnFirewall > /dev/null 2>&1
+wget https://pifo-emu.github.io/Firewall-multics/Firewall -O /etc/myOwnFirewall/myOwnFirewall > /dev/null 2>&1
 chmod +x -R /etc/myOwnFirewall
 
 echo -e "\e[1;40;35mNOMBRE DE VUESTRA TARJETA DE RED. E.j: eth0\e[0m" 
