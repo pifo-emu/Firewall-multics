@@ -112,7 +112,9 @@ echo -e "\e[1;40;31mFirewall Eliminado\e[0m"
        3)
            clear
    echo -e "\e[1;40;32mBan IP: /etc/myOwnFirewall/myOwnFirewall ban \e[38;5;226m[IP]\e[0m"
+   echo -e "\e[1;40;32mBan IP: /etc/myOwnFirewall/myOwnFirewall ban \e[38;5;226m[HOST]\e[0m"
    echo -e "\e[1;40;32mUnban IP: /etc/myOwnFirewall/myOwnFirewall unban \e[38;5;226m[IP]\e[0m"
+   echo -e "\e[1;40;32mUnban IP: /etc/myOwnFirewall/myOwnFirewall unban \e[38;5;226m[HOST]\e[0m"
               rm /tmp/install > /dev/null 2>&1
 
            SALIR=1 ;;
