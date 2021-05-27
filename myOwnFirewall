@@ -97,7 +97,10 @@ function test {
 
 function showHelp {
 
-    echo "Usage: myOwnFirewall {start|stop|restart|test|ban IP|unban IP}"
+    echo "Usage: /etc/myOwnFirewall/myOwnFirewall {start|stop|restart|test|ban IP|unban IP}"
+    echo "Ban IP: /etc/myOwnFirewall/myOwnFirewall ban IP"
+    echo "Unban IP: /etc/myOwnFirewall/myOwnFirewall unban IP"
+
 
 }
 
