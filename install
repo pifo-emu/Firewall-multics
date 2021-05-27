@@ -31,13 +31,13 @@ sed s/"ss_"/"$ss_"/g -i /etc/myOwnFirewall/myOwnFirewall
 
 
 
-ln -s /etc/myOwnFirewall/myOwnFirewall /usr/sbin/f
-touch /etc/myOwnFirewall/banList
+ln -s /etc/myOwnFirewall/myOwnFirewall /usr/sbin/f > /dev/null 2>&1
+touch /etc/myOwnFirewall/banList > /dev/null 2>&1
 
 echo -e "\e[31m!!ATENCION!! AHORA REALIZAREMOS UN TEST TENDRAS 1 MINUTO PARA REALIZAR LAS PRUEBAS\e[0m"
 echo -e "\e[31mPRUEBA QUE TENGAS ACCESO A LA MULTICS Y A SSH\e[0m"
 
-/usr/sbin/f test
+/etc/myOwnFirewall/myOwnFirewall test
 
 echo -e "\e[31m!!ATENCION!! TUVISTES ACCESO A SSH Y A LA MULTICS?\e[0m"
 echo "ESCRIBE SI O NO "EN MINUSCULA" "
