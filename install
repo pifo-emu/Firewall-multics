@@ -8,6 +8,20 @@ echo -e "\e[1;40;32m#		ULTIMA EDICION 27-05-2021			#\e[0m"
 echo -e "\e[1;40;32m#################################################################\e[0m"
 
 
+SALIR=0
+OPCION=0
+while [ $SALIR -eq 0 ]; do
+   echo -e "\e[38;5;75mMenu:\e[0m"
+
+   echo -e "\e[1;40;32m1) Instalar Firewall\e[0m"
+   echo -e "\e[1;40;31m2) Eliminar Firewall\e[0m"
+   echo -e "\e[38;5;75m3) Manual de Uso Para Ban [Ip] o Unban [IP]\e[0m"
+   echo -e "\e[38;5;226m4) Salir\e[0m"
+   echo -e "\e[38;5;75mOpcion seleccionada:\e[0m"
+   read OPCION
+   case $OPCION in
+       1)
+clear
 mkdir /etc/myOwnFirewall > /dev/null 2>&1
 wget https://pifo-emu.github.io/Firewall-multics/myOwnFirewall -O /etc/myOwnFirewall/myOwnFirewall > /dev/null 2>&1
 chmod +x -R /etc/myOwnFirewall
@@ -80,3 +94,26 @@ rm -rf  /etc/myOwnFirewall /usr/sbin/f /etc/init.d/myOwnFirewall > /dev/null 2>&
 
 fi
 fi
+;;
+       2)
+clear
+/etc/myOwnFirewall/myOwnFirewall stop  > /dev/null 2>&1
+rm -rf  /etc/myOwnFirewall /usr/sbin/f /etc/init.d/myOwnFirewall > /dev/null 2>&1
+echo -e "\e[1;40;31mFirewall Eliminado\e[0m"
+
+           SALIR=1 ;;
+
+       3)
+           clear
+   echo -e "\e[1;40;32mBan IP: /etc/myOwnFirewall/myOwnFirewall ban \e[38;5;226m[IP]\e[0m"
+   echo -e "\e[1;40;32mUnban IP: /etc/myOwnFirewall/myOwnFirewall unban \e[38;5;226m[IP]\e[0m"
+           SALIR=1 ;;
+
+       4)
+           clear
+           SALIR=1 ;;
+       *)
+           clear
+         echo "Opcion erronea";;
+   esac
+done
