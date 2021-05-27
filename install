@@ -32,6 +32,7 @@ sed s/"ss_"/"$ss_"/g -i /etc/myOwnFirewall/myOwnFirewall
 
 
 ln -s /etc/myOwnFirewall/myOwnFirewall /usr/sbin/f
+touch /etc/myOwnFirewall/banList
 
 echo -e "\e[31m!!ATENCION!! AHORA REALIZAREMOS UN TEST TENDRAS 1 MINUTO PARA REALIZAR LAS PRUEBAS\e[0m"
 echo -e "\e[31mPRUEBA QUE TENGAS ACCESO A LA MULTICS Y A SSH\e[0m"
