@@ -5,14 +5,17 @@ clear
 SALIR=0
 OPCION=0
 while [ $SALIR -eq 0 ]; do
-echo -e "\e[1;40;32m#################################################################\e[0m"
-echo -e "\e[1;40;32m#SCRIPT MODIFICADO POR perraka DE MULTICS.ES Y EDITADO POR PIFO #\e[0m"
-echo -e "\e[1;40;32m#FOROS AUTORIZADOS PARA PUBLICACION                             #\e[0m"
-echo -e "\e[1;40;32m#MULTICS.EU                                                     #\e[0m"
-echo -e "\e[1;40;32m#MULTICS.ES                                                     #\e[0m"
-echo -e "\e[1;40;32m#MULTICSFORO.COM                                                #\e[0m"
-echo -e "\e[1;40;32m#		ULTIMA EDICION 27-05-2021			#\e[0m"
-echo -e "\e[1;40;32m#################################################################\e[0m"
+echo -e "\e[1;40;32m####################################################################\e[0m"
+echo -e "\e[1;40;32m#								   #\e[0m"
+echo -e "\e[1;40;32m# SCRIPT PUBLICADO POR perraka DE MULTICS.ES Y MODIFICADO POR PIFO #\e[0m"
+echo -e "\e[1;40;32m# FOROS AUTORIZADOS PARA PUBLICACION                               #\e[0m"
+echo -e "\e[1;40;32m# MULTICS.EU                                                       #\e[0m"
+echo -e "\e[1;40;32m# MULTICS.ES                                                       #\e[0m"
+echo -e "\e[1;40;32m# MULTICSFORO.COM                                                  #\e[0m"
+echo -e "\e[1;40;32m#								   #\e[0m"
+echo -e "\e[1;40;32m#			ULTIMA EDICION 27-05-2021		   #\e[0m"
+echo -e "\e[1;40;32m#								   #\e[0m"
+echo -e "\e[1;40;32m####################################################################\e[0m"
 echo -e "\e[38;5;75mMenu:\e[0m"
 
    echo -e "\e[1;40;32m1) Instalar Firewall\e[0m"
