@@ -47,6 +47,7 @@ read "texto"
 if [ "$texto" = "si" ]; then
 systemctl enable myOwnFirewall > /dev/null 2>&1
 /etc/myOwnFirewall/myOwnFirewall start
+/etc/myOwnFirewall/myOwnFirewall
 else
 
 echo "EDITA MANUAL EL ARCHIVO /etc/myOwnFirewall/myOwnFirewall"
@@ -62,6 +63,7 @@ read "texto"
 if [ "$texto" = "si" ]; then
 systemctl enable myOwnFirewall > /dev/null 2>&1
 /etc/myOwnFirewall/myOwnFirewall start
+/etc/myOwnFirewall/myOwnFirewall
 else
 
 echo "VUELVE A INTENTARLO EN OTRO MOMENTO HOY NO ES TU DIA"
