@@ -68,7 +68,7 @@ echo -e "\e[1;40;35mPUERTOS QUE USA LA MULTICS PARA CCCAM MGCAMD O CUALQUIER OTR
 read pr2_
 sed s/"pr2_"/"$pr2_"/g -i /etc/myOwnFirewall/myOwnFirewall 
 
-echo -e "\e[1;40;35mPUERTOS QUE USA LA MULTICS PARA CACHE. E.j: 5000\e[0m"
+echo -e "\e[1;40;35mPUERTOS QUE USA LA MULTICS PARA CACHE SI TIENES MAS DE UNA CACHE EN ESTE SERVIDOR SEPARA LOS PUERTOS CON "," COMAS. E.j: 5000,5001\e[0m"
 read cac_
 sed s/"cac_"/"$cac_"/g -i /etc/myOwnFirewall/myOwnFirewall 
 
