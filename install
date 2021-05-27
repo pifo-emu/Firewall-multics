@@ -18,10 +18,10 @@ echo -e "\e[1;40;32m#								   #\e[0m"
 echo -e "\e[1;40;32m####################################################################\e[0m"
 echo -e "\e[38;5;75mMenu:\e[0m"
 
-   echo -e "\e[1;40;32m1) Instalar Firewall\e[0m"
-   echo -e "\e[1;40;31m2) Eliminar Firewall\e[0m"
-   echo -e "\e[38;5;75m3) Manual de Uso Para Ban [Ip] o Unban [IP]\e[0m"
-   echo -e "\e[38;5;226m4) Salir\e[0m"
+   echo -e "\e[1;40;37m1) \e[1;40;32mInstalar Firewall\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mEliminar Firewall\e[0m"
+   echo -e "\e[1;40;37m3) \e[38;5;75mManual de Uso Para Ban [Ip] o Unban [IP]\e[0m"
+   echo -e "\e[1;40;376m4) \e[38;5;226mSalir\e[0m"
    echo -e "\e[38;5;75mOpcion seleccionada:\e[0m"
    read OPCION
    case $OPCION in
