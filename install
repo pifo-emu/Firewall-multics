@@ -228,8 +228,6 @@ read T3ST
            systemctl enable myOwnFirewall > /dev/null 2>&1
            /etc/myOwnFirewall/myOwnFirewall start
 	   clear
-	   echo -e "\e[1;40;31mFirewall Instalado\e[0m"
-	   sleep 3
            ;;
 
        2) 
@@ -237,7 +235,6 @@ read T3ST
            echo "O SOLICITA AYUDA EN EL FORO"
            echo "AHORA ELIMINARE LO QUE YA SE HABIA INSTALADO PARA QUE EMPIECES NUEVAMENTE"
            rm -rf  /etc/myOwnFirewall /usr/sbin/f /etc/init.d/myOwnFirewall > /dev/null 2>&1
-	   sleep 5
            ;;
        *)
            clear
@@ -245,6 +242,13 @@ read T3ST
 
 esac
 clear
+if [ -f "/etc/myOwnFirewall/myOwnFirewall" ];
+then
+	   echo -e "\e[1;40;31mFIREWALL INSTALADO\e[0m"
+else
+	   echo -e "\e[1;40;31mVUELVE A INTENTARLO\e[0m"
+fi
+
           ;;
 
 
