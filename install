@@ -32,6 +32,8 @@ sed s/"ss_"/"$ss_"/g -i /etc/myOwnFirewall/myOwnFirewall
 
 
 ln -s /etc/myOwnFirewall/myOwnFirewall /usr/sbin/f > /dev/null 2>&1
+ln -s /etc/myOwnFirewall/myOwnFirewall  /etc/init.d/myOwnFirewall > /dev/null 2>&1
+
 touch /etc/myOwnFirewall/banList > /dev/null 2>&1
 
 echo -e "\e[31m!!ATENCION!! AHORA REALIZAREMOS UN TEST TENDRAS 1 MINUTO PARA REALIZAR LAS PRUEBAS\e[0m"
@@ -40,11 +42,10 @@ echo -e "\e[31mPRUEBA QUE TENGAS ACCESO A LA MULTICS Y A SSH\e[0m"
 /etc/myOwnFirewall/myOwnFirewall test
 
 echo -e "\e[31m!!ATENCION!! TUVISTES ACCESO A SSH Y A LA MULTICS?\e[0m"
-echo "ESCRIBE SI O NO "EN MINUSCULA" "
+echo "ESCRIBE SI O NO, EN MINUSCULA"
 read "texto"
 if [ "$texto" = "si" ]; then
-wget https://pifo-emu.github.io/Firewall-multics/multics-iptables.service -O /etc/systemd/system/multics-iptables.service > /dev/null 2>&1
-systemctl enable --now multics-iptables.service> /dev/null 2>&1
+systemctl enable myOwnFirewall > /dev/null 2>&1
 else
 
 echo "EDITA MANUAL EL ARCHIVO /etc/myOwnFirewall/myOwnFirewall"
@@ -54,21 +55,17 @@ echo -e "\e[31m!!ATENCION!! VOLVEREMOS A REALIZAR UN TEST TENDRAS 1 MINUTO PARA 
 echo -e "\e[31mPRUEBA QUE TENGAS ACCESO A LA MULTICS Y A SSH\e[0m"
 /usr/sbin/f test
 echo -e "\e[31m!!ATENCION!! TUVISTES ACCESO A SSH Y A LA MULTICS?\e[0m"
-echo "ESCRIBE SI O NO "EN MINUSCULA" "
+echo "ESCRIBE SI O NO, EN MINUSCULA"
 read "texto"
 
 if [ "$texto" = "si" ]; then
-wget https://pifo-emu.github.io/Firewall-multics/multics-iptables.service -O /etc/systemd/system/multics-iptables.service > /dev/null 2>&1
-systemctl enable --now multics-iptables.service > /dev/null 2>&1
+systemctl enable myOwnFirewall > /dev/null 2>&1
 else
 
 echo "VUELVE A INTENTARLO EN OTRO MOMENTO HOY NO ES TU DIA"
 echo "AHORA ELIMINARE LO QUE YA SE HABIA DESCARGADO PARA QUE EMPIECES NUEVAMENTE "
-rm -rf  /etc/myOwnFirewall /usr/sbin/f > /dev/null 2>&1
+rm -rf  /etc/myOwnFirewall /usr/sbin/f /etc/init.d/myOwnFirewall > /dev/null 2>&1
 
 
 fi
 fi
-
-
-
