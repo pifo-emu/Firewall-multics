@@ -1,31 +1,39 @@
 #!/bin/sh
 
+clear
+
+echo -e "\e[1;40;32m#################################################################\e[0m"
+echo -e "\e[1;40;32m#SCRIPT MODIFICADO POR perraka DE MULTICS.ES Y EDITADO POR PIFO #\e[0m"
+echo -e "\e[1;40;32m#		ULTIMA EDICION 27-05-2021			#\e[0m"
+echo -e "\e[1;40;32m#################################################################\e[0m"
+
+
 mkdir /etc/myOwnFirewall > /dev/null 2>&1
 wget https://pifo-emu.github.io/Firewall-multics/myOwnFirewall -O /etc/myOwnFirewall/myOwnFirewall > /dev/null 2>&1
 chmod +x -R /etc/myOwnFirewall
 
-echo  "NOMBRE DE VUESTRA TARJETA DE RED. E.j: eth0: " 
+echo -e "\e[1;40;35mNOMBRE DE VUESTRA TARJETA DE RED. E.j: eth0\e[0m" 
 read red_
 sed s/"red_"/"$red_"/g -i /etc/myOwnFirewall/myOwnFirewall 
 
-echo "PUERTOS QUE USA LA MULTICS EN LOS PROFILES. E.j: 8000:8010"
+echo -e "\e[1;40;35mPUERTOS QUE USA LA MULTICS EN LOS PROFILES. E.j: 8000:8010\e[0m"
 read pro_
 sed s/"pro_"/"$pro_"/g -i /etc/myOwnFirewall/myOwnFirewall 
 
-echo "PUERTO HTTP QUE USA LA MULTICS. E.j: 8888"
+echo -e "\e[1;40;35mPUERTO HTTP QUE USA LA MULTICS. E.j: 8888\e[0m"
 read web_
 sed s/"web_"/"$web_"/g -i /etc/myOwnFirewall/myOwnFirewall 
 
-echo "PUERTOS QUE USA LA MULTICS PARA CCCAM MGCAMD O CUALQUIER OTRO PROTOCOLO QUE USES. E.j: 4000,12001,18003,..."
+echo -e "\e[1;40;35mPUERTOS QUE USA LA MULTICS PARA CCCAM MGCAMD O CUALQUIER OTRO PROTOCOLO QUE USES. E.j: 4000,12001,18003,...\e[0m"
 read pr2_
 sed s/"pr2_"/"$pr2_"/g -i /etc/myOwnFirewall/myOwnFirewall 
 
-echo "PUERTOS QUE USA LA MULTICS PARA CACHE. E.j: 5000"
+echo -e "\e[1;40;35mPUERTOS QUE USA LA MULTICS PARA CACHE. E.j: 5000\e[0m"
 read cac_
 sed s/"cac_"/"$cac_"/g -i /etc/myOwnFirewall/myOwnFirewall 
 
-echo "PUERTO SSH"
-echo -e "\e[31m!!ATENCION!! NO TE EQUIVOQUES\e[0m"
+echo -e "\e[1;40;35mPUERTO SSH\e[0m"
+echo -e "\e[1;40;31m!!ATENCION!! NO TE EQUIVOQUES\e[0m"
 read ss_
 sed s/"ss_"/"$ss_"/g -i /etc/myOwnFirewall/myOwnFirewall 
 
@@ -36,13 +44,13 @@ ln -s /etc/myOwnFirewall/myOwnFirewall  /etc/init.d/myOwnFirewall > /dev/null 2>
 
 touch /etc/myOwnFirewall/banList > /dev/null 2>&1
 
-echo -e "\e[31m!!ATENCION!! AHORA REALIZAREMOS UN TEST TENDRAS 1 MINUTO PARA REALIZAR LAS PRUEBAS\e[0m"
-echo -e "\e[31mPRUEBA QUE TENGAS ACCESO A LA MULTICS Y A SSH\e[0m"
+echo -e "\e[1;40;31m!!ATENCION!! AHORA REALIZAREMOS UN TEST TENDRAS 1 MINUTO PARA REALIZAR LAS PRUEBAS\e[0m"
+echo -e "\e[1;40;31mPRUEBA QUE TENGAS ACCESO A LA MULTICS Y A SSH\e[0m"
 
 /etc/myOwnFirewall/myOwnFirewall test
 
-echo -e "\e[31m!!ATENCION!! TUVISTES ACCESO A SSH Y A LA MULTICS?\e[0m"
-echo "ESCRIBE SI O NO, EN MINUSCULA"
+echo -e "\e[1;40;31m!!ATENCION!! TUVISTES ACCESO A SSH Y A LA MULTICS?\e[0m"
+echo -e "\e[1;40;31mESCRIBE SI O NO, EN MINUSCULA\e[0m"
 read "texto"
 if [ "$texto" = "si" ]; then
 systemctl enable myOwnFirewall > /dev/null 2>&1
@@ -50,14 +58,14 @@ systemctl enable myOwnFirewall > /dev/null 2>&1
 /etc/myOwnFirewall/myOwnFirewall
 else
 
-echo "EDITA MANUAL EL ARCHIVO /etc/myOwnFirewall/myOwnFirewall"
-echo "TE DARE 5 MINUTOS ANTES DE VOLVER A REALIZAR UN TEST"
+echo -e "\e[1;40;31mEDITA MANUAL EL ARCHIVO /etc/myOwnFirewall/myOwnFirewall\e[0m"
+echo -e "\e[1;40;31mTE DARE 5 MINUTOS ANTES DE VOLVER A REALIZAR UN TEST\e[0m"
 sleep 300
-echo -e "\e[31m!!ATENCION!! VOLVEREMOS A REALIZAR UN TEST TENDRAS 1 MINUTO PARA REALIZAR LAS PRUEBAS\e[0m"
-echo -e "\e[31mPRUEBA QUE TENGAS ACCESO A LA MULTICS Y A SSH\e[0m"
+echo -e "\e[1;40;31m!!ATENCION!! VOLVEREMOS A REALIZAR UN TEST TENDRAS 1 MINUTO PARA REALIZAR LAS PRUEBAS\e[0m"
+echo -e "\e[1;40;31mPRUEBA QUE TENGAS ACCESO A LA MULTICS Y A SSH\e[0m"
 /usr/sbin/f test
-echo -e "\e[31m!!ATENCION!! TUVISTES ACCESO A SSH Y A LA MULTICS?\e[0m"
-echo "ESCRIBE SI O NO, EN MINUSCULA"
+echo -e "\e[1;40;31m!!ATENCION!! TUVISTES ACCESO A SSH Y A LA MULTICS?\e[0m"
+echo -e "\e[1;40;31mESCRIBE SI O NO, EN MINUSCULA\e[0m"
 read "texto"
 
 if [ "$texto" = "si" ]; then
