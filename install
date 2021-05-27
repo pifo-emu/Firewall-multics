@@ -155,7 +155,7 @@ esac
 
 #PORT TCP
 
-echo "NESECITAS ABRIT OTRO PUERTO TCP.?"
+echo "NESECITAS ABRIR OTRO PUERTO TCP.?"
 
    echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
    echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
@@ -180,7 +180,7 @@ esac
 
 #PORT UDP
 
-echo "NESECITAS ABRIT OTRO PUERTO UPD.?"
+echo "NESECITAS ABRIR OTRO PUERTO UDP.?"
 
    echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
    echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
