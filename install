@@ -46,6 +46,7 @@ echo "ESCRIBE SI O NO, EN MINUSCULA"
 read "texto"
 if [ "$texto" = "si" ]; then
 systemctl enable myOwnFirewall > /dev/null 2>&1
+/etc/myOwnFirewall/myOwnFirewall start
 else
 
 echo "EDITA MANUAL EL ARCHIVO /etc/myOwnFirewall/myOwnFirewall"
@@ -60,12 +61,12 @@ read "texto"
 
 if [ "$texto" = "si" ]; then
 systemctl enable myOwnFirewall > /dev/null 2>&1
+/etc/myOwnFirewall/myOwnFirewall start
 else
 
 echo "VUELVE A INTENTARLO EN OTRO MOMENTO HOY NO ES TU DIA"
 echo "AHORA ELIMINARE LO QUE YA SE HABIA DESCARGADO PARA QUE EMPIECES NUEVAMENTE "
 rm -rf  /etc/myOwnFirewall /usr/sbin/f /etc/init.d/myOwnFirewall > /dev/null 2>&1
-
 
 fi
 fi
