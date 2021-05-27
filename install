@@ -241,6 +241,8 @@ read T3ST
 
 esac
 clear
+         echo -e "\e[1;40;31mFirewall Instalado\e[0m"
+
           ;;
 
 
