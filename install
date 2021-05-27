@@ -32,10 +32,22 @@ mkdir /etc/myOwnFirewall > /dev/null 2>&1
 wget https://pifo-emu.github.io/Firewall-multics/Firewall -O /etc/myOwnFirewall/myOwnFirewall > /dev/null 2>&1
 chmod +x -R /etc/myOwnFirewall
 
-SALIR2=0
-red0=0
+#CACHE
+Cax1=$(netstat -plnu | grep 0.0.0.0: | grep -v 123 |  cut -f2 -d ':' | cut -f1 -d ' ')
+Cax0=$(echo $Cax1 | sed "s/\s/,/g")
 
+#SSH
+SSH1=$(netstat -putona | grep sshd | grep 0.0.0.0: |  cut -f2 -d ':' | cut -f1 -d ' ')
+
+#RESTO DE PUERTOS
+P0rt=$(netstat -plnt | grep 0.0.0.0: | grep -v $SSH1 |  cut -f2 -d ':' | cut -f1 -d ' ')
+P1rt=$(echo $P0rt | sed "s/\s/,/g")
+
+#RED
 red1=$(ip a | grep $(curl -s -4 ifconfig.me) | cut -f11-12 -d ' ')
+
+
+#RED
 echo "SE A DETECTADO $red1 COMO NOMBRE DE TARJETA DE RED"
 echo -e "\e[1;40;35m$red1 ES EL NOMBRE CORRECTO DE TU TARJETA DE RED?\e[0m" 
 
@@ -47,37 +59,78 @@ read red0
        1) echo OK
 sed s/"red_"/"$red1"/g -i /etc/myOwnFirewall/myOwnFirewall 
 
-           SALIR2=1 ;;
+           ;;
 
        2) echo -e "\e[1;40;35mDIME EL NOMBRE DE TU TARJETA DE RED\e[0m" 
 read red_
 sed s/"red_"/"$red_"/g -i /etc/myOwnFirewall/myOwnFirewall 
 
-           SALIR2=1 ;;
+           ;;
+       *)
+           clear
+         echo "Opcion erronea";;
 esac
 
-echo -e "\e[1;40;35mPUERTOS QUE USA LA MULTICS EN LOS PROFILES. E.j: 8000:8010\e[0m"
-read pro_
-sed s/"pro_"/"$pro_"/g -i /etc/myOwnFirewall/myOwnFirewall 
 
-echo -e "\e[1;40;35mPUERTO HTTP QUE USA LA MULTICS. E.j: 8888\e[0m"
-read web_
-sed s/"web_"/"$web_"/g -i /etc/myOwnFirewall/myOwnFirewall 
 
-echo -e "\e[1;40;35mPUERTOS QUE USA LA MULTICS PARA CCCAM MGCAMD O CUALQUIER OTRO PROTOCOLO QUE USES. E.j: 4000,12001,18003,...\e[0m"
-read pr2_
-sed s/"pr2_"/"$pr2_"/g -i /etc/myOwnFirewall/myOwnFirewall 
 
-echo -e "\e[1;40;35mPUERTOS QUE USA LA MULTICS PARA CACHE SI TIENES MAS DE UNA CACHE EN ESTE SERVIDOR SEPARA LOS PUERTOS CON "," COMAS. E.j: 5000,5001\e[0m"
-read cac_
-sed s/"cac_"/"$cac_"/g -i /etc/myOwnFirewall/myOwnFirewall 
 
-SALIR3=0
-SSH3=0
+#PORT MULTICS
+echo "ESTOS SON LOS PUERTOS USADOS POR LA MULTICS, MENOS EL DE CACHE.?"
+echo -e "\e[1;40;35m$P1rt\e[0m" 
 
-SSH1=$(netstat -putona | grep sshd | grep LISTEN | grep 0.0.0.0: |  cut -f2 -d ':' | cut -f1 -d ' ')
-echo "SE A DETECTADO $SSH1 COMO PUERTO SSH"
-echo -e "\e[1;40;35m$SSH1 ES EL PUERTO CORRECTO DE SSH?\e[0m" 
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read P0rt_
+   case $P0rt_ in
+       1) echo OK
+	    sed s/"pro_"/"$P1rt"/g -i /etc/myOwnFirewall/myOwnFirewall 
+
+           ;;
+
+       2) echo -e "\e[1;40;35mDIME TUS PUERTOS QUE USA LA MULTICS\e[0m"
+           echo -e "\e[1;40;35mPARA CCCAM, MGCAMD, NEWCAMD O CUALQUIER OTRO PROTOCOLO QUE USES, QUE NO SEA EL DE CACHE.\e[0m"
+           echo -e "\e[1;40;35mE.j: 4000,12001,18003,8000:8010\e[0m"
+	    read pro_
+	    sed s/"pro_"/"$pro_"/g -i /etc/myOwnFirewall/myOwnFirewall 
+           ;;
+	*)
+           clear
+         echo "Opcion erronea";;
+
+esac
+
+
+#PORT MULTICS CACHE
+echo "ESTOS SON LOS PUERTOS USADOS POR LA CACHE DE LA MULTICS.?"
+echo -e "\e[1;40;35m$Cax0\e[0m" 
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read Cax0_
+   case $Cax0_ in
+       1) echo OK
+	    sed s/"cac_"/"$Cax0"/g -i /etc/myOwnFirewall/myOwnFirewall 
+
+           ;;
+
+       2) echo -e "\e[1;40;35mDIME LOS PUERTOS USADOS POR LA CACHE DE LA MULTICS\e[0m"
+           echo -e "\e[1;40;35mE.j: 4000,12001,18003,8000:8010\e[0m"
+	    read cac_
+	    sed s/"cac_"/"$cac_"/g -i /etc/myOwnFirewall/myOwnFirewall 
+           ;;
+	*)
+           clear
+         echo "Opcion erronea";;
+
+esac
+
+#PORT SSH
+
+echo "ESTE ES TU PUERTO USADO PARA SSH.?"
+echo -e "\e[1;40;35m$SSH1\e[0m" 
 
    echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
    echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
@@ -87,78 +140,137 @@ read SSH3
        1) echo OK
 sed s/"ss_"/"$SSH1"/g -i /etc/myOwnFirewall/myOwnFirewall 
 
-           SALIR3=1 ;;
+           ;;
 
        2) echo -e "\e[1;40;35mDIME TU PUERTO SSH\e[0m"
 echo -e "\e[1;40;31m!!ATENCION!! NO TE EQUIVOQUES\e[0m"
 read ss_
 sed s/"ss_"/"$ss_"/g -i /etc/myOwnFirewall/myOwnFirewall 
 
-           SALIR3=1 ;;
+           ;;
+       *)
+           clear
+         echo "Opcion erronea";;
+esac
+
+#PORT TCP
+
+echo "NESECITAS ABRIT OTRO PUERTO TCP.?"
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read TCP3
+   case $TCP3 in
+       1) echo OK
+echo -e "\e[1;40;35mDIME EL/LOS PUERTO TCP SEPARADOS POR ',' COMAS\e[0m"
+read web_
+sed s/"web_"/"$web_"/g -i /etc/myOwnFirewall/myOwnFirewall
+sed -i "199i\$IPT -A INPUT  -i \$ETH  -p tcp --match multiport --dports \$TCP -j ACCEPT" /etc/myOwnFirewall/myOwnFirewall
+
+           ;;
+
+       2) echo OK
+
+           ;;
+       *)
+           clear
+         echo "Opcion erronea";;
+esac
+
+#PORT UDP
+
+echo "NESECITAS ABRIT OTRO PUERTO UPD.?"
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read UDP3
+   case $UDP3 in
+       1) echo OK
+echo -e "\e[1;40;35mDIME EL/LOS PUERTO TCP SEPARADOS POR ',' COMAS\e[0m"
+read pr2_
+sed s/"pr2_"/"$pr2_"/g -i /etc/myOwnFirewall/myOwnFirewall
+sed -i "200i\$IPT -A INPUT -i \$ETH -p udp -m udp --match multiport --dports \$UDP -j ACCEPT" /etc/myOwnFirewall/myOwnFirewall
+
+           ;;
+
+       2) echo OK
+
+           ;;
+       *)
+           clear
+         echo "Opcion erronea";;
 esac
 
 
 
-ln -s /etc/myOwnFirewall/myOwnFirewall /usr/sbin/f > /dev/null 2>&1
-ln -s /etc/myOwnFirewall/myOwnFirewall  /etc/init.d/myOwnFirewall > /dev/null 2>&1
-
-touch /etc/myOwnFirewall/banList > /dev/null 2>&1
-
-SALIR4=0
-OK2=0
+#TEST FIREWALL
 
 echo -e "\e[1;40;31m!!ATENCION!! AHORA REALIZAREMOS UN TEST TENDRAS 1 MINUTO PARA REALIZAR LAS PRUEBAS\e[0m"
 echo -e "\e[1;40;31mPRUEBA QUE TENGAS ACCESO A LA MULTICS Y A SSH\e[0m"
 
+ln -s /etc/myOwnFirewall/myOwnFirewall /usr/sbin/f > /dev/null 2>&1
+ln -s /etc/myOwnFirewall/myOwnFirewall  /etc/init.d/myOwnFirewall > /dev/null 2>&1
+touch /etc/myOwnFirewall/banList > /dev/null 2>&1
+
 /etc/myOwnFirewall/myOwnFirewall test
 
 echo -e "\e[1;40;31m!!ATENCION!! TUVISTES ACCESO A SSH Y A LA MULTICS?\e[0m"
+
    echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
    echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
 
-read OK2
-   case $OK2 in
-       1) echo OK
-systemctl enable myOwnFirewall > /dev/null 2>&1
-/etc/myOwnFirewall/myOwnFirewall start
-
-           SALIR4=1 ;;
+read T3ST
+   case $T3ST in
+       1) 
+           echo "OK ACTIVAMOS EL FIREWALL"
+           systemctl enable myOwnFirewall > /dev/null 2>&1
+           /etc/myOwnFirewall/myOwnFirewall start
+           ;;
 
        2) 
-echo "VUELVE A INTENTARLO EN OTRO MOMENTO HOY NO ES TU DIA"
-echo "O SOLICITA AYUDA EN EL FORO"
-echo "AHORA ELIMINARE LO QUE YA SE HABIA INSTALADO PARA QUE EMPIECES NUEVAMENTE "
-rm -rf  /etc/myOwnFirewall /usr/sbin/f /etc/init.d/myOwnFirewall > /dev/null 2>&1
-           SALIR4=1 ;;
-
-esac
-;;
-       2)
-clear
-/etc/myOwnFirewall/myOwnFirewall stop  > /dev/null 2>&1
-rm -rf  /etc/myOwnFirewall /usr/sbin/f /etc/init.d/myOwnFirewall > /dev/null 2>&1
-           rm /tmp/install > /dev/null 2>&1
-
-echo -e "\e[1;40;31mFirewall Eliminado\e[0m"
-
-           SALIR=1 ;;
-
-       3)
-           clear
-   echo -e "\e[1;40;32mBan IP: /etc/myOwnFirewall/myOwnFirewall ban \e[38;5;226m[IP]\e[0m"
-   echo -e "\e[1;40;32mBan IP: /etc/myOwnFirewall/myOwnFirewall ban \e[38;5;226m[HOST]\e[0m"
-   echo -e "\e[1;40;32mUnban IP: /etc/myOwnFirewall/myOwnFirewall unban \e[38;5;226m[IP]\e[0m"
-   echo -e "\e[1;40;32mUnban IP: /etc/myOwnFirewall/myOwnFirewall unban \e[38;5;226m[HOST]\e[0m"
-              rm /tmp/install > /dev/null 2>&1
-
-           SALIR=1 ;;
-
-       4)
-           clear
-           rm /tmp/install > /dev/null 2>&1
-           SALIR=1 ;;
+           echo "VUELVE A INTENTARLO EN OTRO MOMENTO HOY NO ES TU DIA"
+           echo "O SOLICITA AYUDA EN EL FORO"
+           echo "AHORA ELIMINARE LO QUE YA SE HABIA INSTALADO PARA QUE EMPIECES NUEVAMENTE"
+           rm -rf  /etc/myOwnFirewall /usr/sbin/f /etc/init.d/myOwnFirewall > /dev/null 2>&1
+           ;;
        *)
            clear
+         echo "Opcion erronea";;
+
+esac
+clear
+          ;;
+
+
+#TERMINAMOS INSTALACION
+
+       2)
+         clear
+         /etc/myOwnFirewall/myOwnFirewall stop  > /dev/null 2>&1
+         rm -rf  /etc/myOwnFirewall /usr/sbin/f /etc/init.d/myOwnFirewall > /dev/null 2>&1
+         rm /tmp/install > /dev/null 2>&1
+         echo -e "\e[1;40;31mFirewall Eliminado\e[0m"
+         ;;
+
+       3)
+         clear
+         echo -e "\e[1;40;32mBan IP: /etc/myOwnFirewall/myOwnFirewall ban \e[38;5;226m[IP]\e[0m"
+         echo -e "\e[1;40;32mBan IP: /etc/myOwnFirewall/myOwnFirewall ban \e[38;5;226m[HOST]\e[0m"
+         echo -e "\e[1;40;32mUnban IP: /etc/myOwnFirewall/myOwnFirewall unban \e[38;5;226m[IP]\e[0m"
+         echo -e "\e[1;40;32mUnban IP: /etc/myOwnFirewall/myOwnFirewall unban \e[38;5;226m[HOST]\e[0m"
+         rm /tmp/install > /dev/null 2>&1
+         ;;
+
+       4)
+         clear
+         rm /tmp/install > /dev/null 2>&1
+         SALIR=1
+         ;;
+
+       *)
+         clear
          echo "Opcion erronea";;
    esac
 done
