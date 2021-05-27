@@ -235,6 +235,7 @@ read T3ST
            echo "O SOLICITA AYUDA EN EL FORO"
            echo "AHORA ELIMINARE LO QUE YA SE HABIA INSTALADO PARA QUE EMPIECES NUEVAMENTE"
            rm -rf  /etc/myOwnFirewall /usr/sbin/f /etc/init.d/myOwnFirewall > /dev/null 2>&1
+	   sleep 5
            ;;
        *)
            clear
