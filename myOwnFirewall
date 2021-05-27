@@ -2,8 +2,17 @@
 
 #################################################################
 #SCRIPT MODIFICADO POR perraka DE MULTICS.ES Y EDITADO POR PIFO #
-#ULTIMA EDICION 26-05-2021					#
+#ULTIMA EDICION 27-05-2021					#
 #################################################################
+
+### BEGIN INIT INFO
+# Provides:          myOwnFirewall
+# Required-Start:    $all
+# Required-Stop:
+# Default-Start:     2 3 4 5
+# Default-Stop:
+# Short-Description: myOwnFirewall
+### END INIT INFO
 
 ########IMPORTANTE##############
 
