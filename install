@@ -16,7 +16,7 @@ echo "PUERTO HTTP QUE USA LA MULTICS. E.j: 8888"
 read web_
 sed s/"web_"/"$web_"/g -i /etc/myOwnFirewall/myOwnFirewall 
 
-echo "PUERTOS QUE USA LA MULTICS PARA CCCAM MGCAMD O CUALQUIER OTRO PROTOCOLO QUE USES. E.j: 4000,12001,18003,...."
+echo "PUERTOS QUE USA LA MULTICS PARA CCCAM MGCAMD O CUALQUIER OTRO PROTOCOLO QUE USES. E.j: 4000,12001,18003,..."
 read pr2_
 sed s/"pr2_"/"$pr2_"/g -i /etc/myOwnFirewall/myOwnFirewall 
 
