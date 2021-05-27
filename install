@@ -27,13 +27,34 @@ echo -e "\e[38;5;75mMenu:\e[0m"
    case $OPCION in
        1)
 clear
+apt-get install dnsutils curl -y > /dev/null 2>&1
 mkdir /etc/myOwnFirewall > /dev/null 2>&1
 wget https://pifo-emu.github.io/Firewall-multics/Firewall -O /etc/myOwnFirewall/myOwnFirewall > /dev/null 2>&1
 chmod +x -R /etc/myOwnFirewall
 
-echo -e "\e[1;40;35mNOMBRE DE VUESTRA TARJETA DE RED. E.j: eth0\e[0m" 
+SALIR2=0
+red0=0
+
+red1=$(ip a | grep $(curl -s -4 ifconfig.me) | cut -f11-12 -d ' ')
+echo "SE A DETECTADO $red1 COMO NOMBRE DE TARJETA DE RED"
+echo -e "\e[1;40;35m$red1 ES EL NOMBRE CORRECTO DE TU TARJETA DE RED?\e[0m" 
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read red0
+   case $red0 in
+       1) echo OK
+sed s/"red_"/"$red1"/g -i /etc/myOwnFirewall/myOwnFirewall 
+
+           SALIR2=1 ;;
+
+       2) echo -e "\e[1;40;35mDIME EL NOMBRE DE TU TARJETA DE RED\e[0m" 
 read red_
 sed s/"red_"/"$red_"/g -i /etc/myOwnFirewall/myOwnFirewall 
+
+           SALIR2=1 ;;
+esac
 
 echo -e "\e[1;40;35mPUERTOS QUE USA LA MULTICS EN LOS PROFILES. E.j: 8000:8010\e[0m"
 read pro_
@@ -51,10 +72,30 @@ echo -e "\e[1;40;35mPUERTOS QUE USA LA MULTICS PARA CACHE. E.j: 5000\e[0m"
 read cac_
 sed s/"cac_"/"$cac_"/g -i /etc/myOwnFirewall/myOwnFirewall 
 
-echo -e "\e[1;40;35mPUERTO SSH\e[0m"
+SALIR3=0
+SSH3=0
+
+SSH1=$(netstat -putona | grep sshd | grep LISTEN | grep 0.0.0.0: |  cut -f2 -d ':' | cut -f1 -d ' ')
+echo "SE A DETECTADO $SSH1 COMO PUERTO SSH"
+echo -e "\e[1;40;35m$SSH1 ES EL PUERTO CORRECTO DE SSH?\e[0m" 
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read SSH3
+   case $SSH3 in
+       1) echo OK
+sed s/"ss_"/"$SSH1"/g -i /etc/myOwnFirewall/myOwnFirewall 
+
+           SALIR3=1 ;;
+
+       2) echo -e "\e[1;40;35mDIME TU PUERTO SSH\e[0m"
 echo -e "\e[1;40;31m!!ATENCION!! NO TE EQUIVOQUES\e[0m"
 read ss_
 sed s/"ss_"/"$ss_"/g -i /etc/myOwnFirewall/myOwnFirewall 
+
+           SALIR3=1 ;;
+esac
 
 
 
@@ -63,40 +104,34 @@ ln -s /etc/myOwnFirewall/myOwnFirewall  /etc/init.d/myOwnFirewall > /dev/null 2>
 
 touch /etc/myOwnFirewall/banList > /dev/null 2>&1
 
+SALIR4=0
+OK2=0
+
 echo -e "\e[1;40;31m!!ATENCION!! AHORA REALIZAREMOS UN TEST TENDRAS 1 MINUTO PARA REALIZAR LAS PRUEBAS\e[0m"
 echo -e "\e[1;40;31mPRUEBA QUE TENGAS ACCESO A LA MULTICS Y A SSH\e[0m"
 
 /etc/myOwnFirewall/myOwnFirewall test
 
 echo -e "\e[1;40;31m!!ATENCION!! TUVISTES ACCESO A SSH Y A LA MULTICS?\e[0m"
-echo -e "\e[1;40;31mESCRIBE SI O NO, EN MINUSCULA\e[0m"
-read "texto"
-if [ "$texto" = "si" ]; then
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read OK2
+   case $OK2 in
+       1) echo OK
 systemctl enable myOwnFirewall > /dev/null 2>&1
 /etc/myOwnFirewall/myOwnFirewall start
-else
 
-echo -e "\e[1;40;31mEDITA MANUAL EL ARCHIVO /etc/myOwnFirewall/myOwnFirewall\e[0m"
-echo -e "\e[1;40;31mTE DARE 5 MINUTOS ANTES DE VOLVER A REALIZAR UN TEST\e[0m"
-sleep 300
-echo -e "\e[1;40;31m!!ATENCION!! VOLVEREMOS A REALIZAR UN TEST TENDRAS 1 MINUTO PARA REALIZAR LAS PRUEBAS\e[0m"
-echo -e "\e[1;40;31mPRUEBA QUE TENGAS ACCESO A LA MULTICS Y A SSH\e[0m"
-/usr/sbin/f test
-echo -e "\e[1;40;31m!!ATENCION!! TUVISTES ACCESO A SSH Y A LA MULTICS?\e[0m"
-echo -e "\e[1;40;31mESCRIBE SI O NO, EN MINUSCULA\e[0m"
-read "texto"
+           SALIR4=1 ;;
 
-if [ "$texto" = "si" ]; then
-systemctl enable myOwnFirewall > /dev/null 2>&1
-/etc/myOwnFirewall/myOwnFirewall start 
-else
-
+       2) 
 echo "VUELVE A INTENTARLO EN OTRO MOMENTO HOY NO ES TU DIA"
-echo "AHORA ELIMINARE LO QUE YA SE HABIA DESCARGADO PARA QUE EMPIECES NUEVAMENTE "
+echo "O SOLICITA AYUDA EN EL FORO"
+echo "AHORA ELIMINARE LO QUE YA SE HABIA INSTALADO PARA QUE EMPIECES NUEVAMENTE "
 rm -rf  /etc/myOwnFirewall /usr/sbin/f /etc/init.d/myOwnFirewall > /dev/null 2>&1
+           SALIR4=1 ;;
 
-fi
-fi
+esac
 ;;
        2)
 clear
