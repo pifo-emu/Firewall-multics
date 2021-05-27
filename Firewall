@@ -189,11 +189,15 @@ $IPT -A INPUT -i $ETH -m state --state ESTABLISHED,RELATED -j ACCEPT
 
 #PERMITIR ACCESO WEB A MULTICS Y PROFILES Y CACHE
 
-$IPT -A INPUT  -i $ETH  -p tcp --match multiport --dports $MCS_P,$TCP -j ACCEPT
+$IPT -A INPUT  -i $ETH  -p tcp --match multiport --dports $MCS_P -j ACCEPT
 
 #PERMITIR ACCESO CACHE A MULTICS
 
-$IPT -A INPUT -i $ETH -p udp -m udp --match multiport --dports $CACHE,$UDP -j ACCEPT
+$IPT -A INPUT -i $ETH -p udp -m udp --match multiport --dports $CACHE -j ACCEPT
+
+#PUERTOS EXTRAS
+$IPT -A INPUT  -i $ETH  -p tcp --match multiport --dports $TCP -j ACCEPT
+$IPT -A INPUT -i $ETH -p udp -m udp --match multiport --dports $UDP -j ACCEPT
 
 
 #PERMITIR SSH
